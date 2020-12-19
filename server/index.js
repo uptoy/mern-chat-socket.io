@@ -5,7 +5,7 @@ const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
-
+const PORT = process.env.PORT
 const app = express();
 //socket.ioを渡すことで新しいインスタンスは初期化される
 const server = http.createServer(app);
@@ -53,4 +53,4 @@ io.on('connect', (socket) => {
     })
 });
 
-server.listen(process.env.PORT || 5000, () => console.log(`Server has started.`));
+server.listen(PORT, () => console.log(`Server has started.`));
