@@ -13,30 +13,31 @@ const ENDPOINT = 'localhost:5000'
 let socket
 
 const Chat = ({ location }) => {
-    const [name, setName] = useState('')
-    const [room, setRoom] = useState('')
-    const [users, setUsers] = useState('')
-    const [message, setMessage] = useState('')
-    const [messages, setMessages] = useState('')
+    const [name, setName] = useState('');
+    const [room, setRoom] = useState('');
+    const [users, setUsers] = useState('');
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([]);
 
     useEffect(() => {
-        const { name, room } = queryString.parse(location.search)
         //console.log(location.search) name=input-name&input-room==room
+        const { name, room } = queryString.parse(location.search);
         //console.log{name,room} Object{name:"input-name",room:"input-room"}
-        //socketとサーバーを紐
-        socket = io(ENDPOINT)
+        //socketとサーバーを紐づける
+        socket = io(ENDPOINT);
 
+        setRoom(room);
         setName(name)
-        setRoom(room)
         //console.log(socket) socketのインスタンス表示
-
         //clientからserverににオブジェクトを渡す
         socket.emit('join', { name, room }, (error) => {
             if (error) {
-                alert(error)
+                alert(error);
             }
-        })
+        });
+
     }, [ENDPOINT, location.search]);
+    //[ENDPOINT, location.search]の内容が変更したときのみ処理が走る
 
     useEffect(() => {
         socket.on('message', message => {
@@ -47,6 +48,7 @@ const Chat = ({ location }) => {
             setUsers(users);
         });
     }, []);
+    //1回のみ実行される
 
 
     const sendMessage = (event) => {
@@ -57,7 +59,7 @@ const Chat = ({ location }) => {
         }
     }
 
-    //[ENDPOINT, location.search]の内容が変更したときのみ処理が走る
+
     return (
         <div className="outerContainer">
             <div className="container">
@@ -67,7 +69,7 @@ const Chat = ({ location }) => {
             </div>
             <TextContainer users={users} />
         </div>
-    )
+    );
 }
 
 export default Chat

@@ -28,7 +28,7 @@ const removeUser = (id) => {
         // // ken
         // //index === 1
         // const removedUsers = users.splice(index, 1)
-        // // removedUsers = ["ken"] 
+        // // removedUsers = ["ken"]
         // console.log(removedUsers)
         // return removeUsers[0]　//ken
         return users.splice(index, 1)[0] //取り除かれた要素が返り値として返される
