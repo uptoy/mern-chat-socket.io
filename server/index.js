@@ -5,7 +5,6 @@ const cors = require('cors');
 
 const { addUser, removeUser, getUser, getUsersInRoom } = require('./users');
 
-const router = require('./router');
 
 const app = express();
 //socket.ioを渡すことで新しいインスタンスは初期化される
@@ -13,7 +12,6 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(cors());//client,serverAPI許可
-app.user(router)
 
 //user接続時(connectイベント・データを受信する)
 io.on('connect', (socket) => {
